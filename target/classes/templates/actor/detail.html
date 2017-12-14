@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1" />
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<script src="http://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('table').DataTable();
+	});
+</script>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>First Name</th>
+				<td th:text="${actor.firstName}"></td>
+			</tr>
+			<tr>
+				<th>Last Name</th>
+				<td th:text="${actor.lastName}"></td>
+			</tr>
+
+			<tr>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Detail</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="filmActor : ${filmActors}">
+				<td th:text="${filmActor.film.title}"></td>
+				<td th:text="${filmActor.film.description}"></td>
+				<td><a
+					th:href="@{'/actor/detailFilm/'+${filmActor.film.filmId}}">Detail</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+
+</body>
+</html>

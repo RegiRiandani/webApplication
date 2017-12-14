@@ -1,0 +1,1681 @@
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..2af7cef
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,24 @@
++target/
++!.mvn/wrapper/maven-wrapper.jar
++
++### STS ###
++.apt_generated
++.classpath
++.factorypath
++.project
++.settings
++.springBeans
++
++### IntelliJ IDEA ###
++.idea
++*.iws
++*.iml
++*.ipr
++
++### NetBeans ###
++nbproject/private/
++build/
++nbbuild/
++dist/
++nbdist/
++.nb-gradle/
+\ No newline at end of file
+diff --git a/.mvn/wrapper/maven-wrapper.jar b/.mvn/wrapper/maven-wrapper.jar
+new file mode 100644
+index 0000000..9cc84ea
+--- /dev/null
++++ b/.mvn/wrapper/maven-wrapper.jar
+Binary files differ
+diff --git a/.mvn/wrapper/maven-wrapper.properties b/.mvn/wrapper/maven-wrapper.properties
+new file mode 100644
+index 0000000..9dda3b6
+--- /dev/null
++++ b/.mvn/wrapper/maven-wrapper.properties
+@@ -0,0 +1 @@
++distributionUrl=https://repo1.maven.org/maven2/org/apache/maven/apache-maven/3.5.2/apache-maven-3.5.2-bin.zip
+diff --git a/mvnw b/mvnw
+new file mode 100644
+index 0000000..5bf251c
+--- /dev/null
++++ b/mvnw
+@@ -0,0 +1,225 @@
++#!/bin/sh
++# ----------------------------------------------------------------------------
++# Licensed to the Apache Software Foundation (ASF) under one
++# or more contributor license agreements.  See the NOTICE file
++# distributed with this work for additional information
++# regarding copyright ownership.  The ASF licenses this file
++# to you under the Apache License, Version 2.0 (the
++# "License"); you may not use this file except in compliance
++# with the License.  You may obtain a copy of the License at
++#
++#    http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing,
++# software distributed under the License is distributed on an
++# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
++# KIND, either express or implied.  See the License for the
++# specific language governing permissions and limitations
++# under the License.
++# ----------------------------------------------------------------------------
++
++# ----------------------------------------------------------------------------
++# Maven2 Start Up Batch script
++#
++# Required ENV vars:
++# ------------------
++#   JAVA_HOME - location of a JDK home dir
++#
++# Optional ENV vars
++# -----------------
++#   M2_HOME - location of maven2's installed home dir
++#   MAVEN_OPTS - parameters passed to the Java VM when running Maven
++#     e.g. to debug Maven itself, use
++#       set MAVEN_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000
++#   MAVEN_SKIP_RC - flag to disable loading of mavenrc files
++# ----------------------------------------------------------------------------
++
++if [ -z "$MAVEN_SKIP_RC" ] ; then
++
++  if [ -f /etc/mavenrc ] ; then
++    . /etc/mavenrc
++  fi
++
++  if [ -f "$HOME/.mavenrc" ] ; then
++    . "$HOME/.mavenrc"
++  fi
++
++fi
++
++# OS specific support.  $var _must_ be set to either true or false.
++cygwin=false;
++darwin=false;
++mingw=false
++case "`uname`" in
++  CYGWIN*) cygwin=true ;;
++  MINGW*) mingw=true;;
++  Darwin*) darwin=true
++    # Use /usr/libexec/java_home if available, otherwise fall back to /Library/Java/Home
++    # See https://developer.apple.com/library/mac/qa/qa1170/_index.html
++    if [ -z "$JAVA_HOME" ]; then
++      if [ -x "/usr/libexec/java_home" ]; then
++        export JAVA_HOME="`/usr/libexec/java_home`"
++      else
++        export JAVA_HOME="/Library/Java/Home"
++      fi
++    fi
++    ;;
++esac
++
++if [ -z "$JAVA_HOME" ] ; then
++  if [ -r /etc/gentoo-release ] ; then
++    JAVA_HOME=`java-config --jre-home`
++  fi
++fi
++
++if [ -z "$M2_HOME" ] ; then
++  ## resolve links - $0 may be a link to maven's home
++  PRG="$0"
++
++  # need this for relative symlinks
++  while [ -h "$PRG" ] ; do
++    ls=`ls -ld "$PRG"`
++    link=`expr "$ls" : '.*-> \(.*\)$'`
++    if expr "$link" : '/.*' > /dev/null; then
++      PRG="$link"
++    else
++      PRG="`dirname "$PRG"`/$link"
++    fi
++  done
++
++  saveddir=`pwd`
++
++  M2_HOME=`dirname "$PRG"`/..
++
++  # make it fully qualified
++  M2_HOME=`cd "$M2_HOME" && pwd`
++
++  cd "$saveddir"
++  # echo Using m2 at $M2_HOME
++fi
++
++# For Cygwin, ensure paths are in UNIX format before anything is touched
++if $cygwin ; then
++  [ -n "$M2_HOME" ] &&
++    M2_HOME=`cygpath --unix "$M2_HOME"`
++  [ -n "$JAVA_HOME" ] &&
++    JAVA_HOME=`cygpath --unix "$JAVA_HOME"`
++  [ -n "$CLASSPATH" ] &&
++    CLASSPATH=`cygpath --path --unix "$CLASSPATH"`
++fi
++
++# For Migwn, ensure paths are in UNIX format before anything is touched
++if $mingw ; then
++  [ -n "$M2_HOME" ] &&
++    M2_HOME="`(cd "$M2_HOME"; pwd)`"
++  [ -n "$JAVA_HOME" ] &&
++    JAVA_HOME="`(cd "$JAVA_HOME"; pwd)`"
++  # TODO classpath?
++fi
++
++if [ -z "$JAVA_HOME" ]; then
++  javaExecutable="`which javac`"
++  if [ -n "$javaExecutable" ] && ! [ "`expr \"$javaExecutable\" : '\([^ ]*\)'`" = "no" ]; then
++    # readlink(1) is not available as standard on Solaris 10.
++    readLink=`which readlink`
++    if [ ! `expr "$readLink" : '\([^ ]*\)'` = "no" ]; then
++      if $darwin ; then
++        javaHome="`dirname \"$javaExecutable\"`"
++        javaExecutable="`cd \"$javaHome\" && pwd -P`/javac"
++      else
++        javaExecutable="`readlink -f \"$javaExecutable\"`"
++      fi
++      javaHome="`dirname \"$javaExecutable\"`"
++      javaHome=`expr "$javaHome" : '\(.*\)/bin'`
++      JAVA_HOME="$javaHome"
++      export JAVA_HOME
++    fi
++  fi
++fi
++
++if [ -z "$JAVACMD" ] ; then
++  if [ -n "$JAVA_HOME"  ] ; then
++    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
++      # IBM's JDK on AIX uses strange locations for the executables
++      JAVACMD="$JAVA_HOME/jre/sh/java"
++    else
++      JAVACMD="$JAVA_HOME/bin/java"
++    fi
++  else
++    JAVACMD="`which java`"
++  fi
++fi
++
++if [ ! -x "$JAVACMD" ] ; then
++  echo "Error: JAVA_HOME is not defined correctly." >&2
++  echo "  We cannot execute $JAVACMD" >&2
++  exit 1
++fi
++
++if [ -z "$JAVA_HOME" ] ; then
++  echo "Warning: JAVA_HOME environment variable is not set."
++fi
++
++CLASSWORLDS_LAUNCHER=org.codehaus.plexus.classworlds.launcher.Launcher
++
++# traverses directory structure from process work directory to filesystem root
++# first directory with .mvn subdirectory is considered project base directory
++find_maven_basedir() {
++
++  if [ -z "$1" ]
++  then
++    echo "Path not specified to find_maven_basedir"
++    return 1
++  fi
++
++  basedir="$1"
++  wdir="$1"
++  while [ "$wdir" != '/' ] ; do
++    if [ -d "$wdir"/.mvn ] ; then
++      basedir=$wdir
++      break
++    fi
++    # workaround for JBEAP-8937 (on Solaris 10/Sparc)
++    if [ -d "${wdir}" ]; then
++      wdir=`cd "$wdir/.."; pwd`
++    fi
++    # end of workaround
++  done
++  echo "${basedir}"
++}
++
++# concatenates all lines of a file
++concat_lines() {
++  if [ -f "$1" ]; then
++    echo "$(tr -s '\n' ' ' < "$1")"
++  fi
++}
++
++BASE_DIR=`find_maven_basedir "$(pwd)"`
++if [ -z "$BASE_DIR" ]; then
++  exit 1;
++fi
++
++export MAVEN_PROJECTBASEDIR=${MAVEN_BASEDIR:-"$BASE_DIR"}
++echo $MAVEN_PROJECTBASEDIR
++MAVEN_OPTS="$(concat_lines "$MAVEN_PROJECTBASEDIR/.mvn/jvm.config") $MAVEN_OPTS"
++
++# For Cygwin, switch paths to Windows format before running java
++if $cygwin; then
++  [ -n "$M2_HOME" ] &&
++    M2_HOME=`cygpath --path --windows "$M2_HOME"`
++  [ -n "$JAVA_HOME" ] &&
++    JAVA_HOME=`cygpath --path --windows "$JAVA_HOME"`
++  [ -n "$CLASSPATH" ] &&
++    CLASSPATH=`cygpath --path --windows "$CLASSPATH"`
++  [ -n "$MAVEN_PROJECTBASEDIR" ] &&
++    MAVEN_PROJECTBASEDIR=`cygpath --path --windows "$MAVEN_PROJECTBASEDIR"`
++fi
++
++WRAPPER_LAUNCHER=org.apache.maven.wrapper.MavenWrapperMain
++
++exec "$JAVACMD" \
++  $MAVEN_OPTS \
++  -classpath "$MAVEN_PROJECTBASEDIR/.mvn/wrapper/maven-wrapper.jar" \
++  "-Dmaven.home=${M2_HOME}" "-Dmaven.multiModuleProjectDirectory=${MAVEN_PROJECTBASEDIR}" \
++  ${WRAPPER_LAUNCHER} $MAVEN_CONFIG "$@"
+diff --git a/mvnw.cmd b/mvnw.cmd
+new file mode 100644
+index 0000000..019bd74
+--- /dev/null
++++ b/mvnw.cmd
+@@ -0,0 +1,143 @@
++@REM ----------------------------------------------------------------------------
++@REM Licensed to the Apache Software Foundation (ASF) under one
++@REM or more contributor license agreements.  See the NOTICE file
++@REM distributed with this work for additional information
++@REM regarding copyright ownership.  The ASF licenses this file
++@REM to you under the Apache License, Version 2.0 (the
++@REM "License"); you may not use this file except in compliance
++@REM with the License.  You may obtain a copy of the License at
++@REM
++@REM    http://www.apache.org/licenses/LICENSE-2.0
++@REM
++@REM Unless required by applicable law or agreed to in writing,
++@REM software distributed under the License is distributed on an
++@REM "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
++@REM KIND, either express or implied.  See the License for the
++@REM specific language governing permissions and limitations
++@REM under the License.
++@REM ----------------------------------------------------------------------------
++
++@REM ----------------------------------------------------------------------------
++@REM Maven2 Start Up Batch script
++@REM
++@REM Required ENV vars:
++@REM JAVA_HOME - location of a JDK home dir
++@REM
++@REM Optional ENV vars
++@REM M2_HOME - location of maven2's installed home dir
++@REM MAVEN_BATCH_ECHO - set to 'on' to enable the echoing of the batch commands
++@REM MAVEN_BATCH_PAUSE - set to 'on' to wait for a key stroke before ending
++@REM MAVEN_OPTS - parameters passed to the Java VM when running Maven
++@REM     e.g. to debug Maven itself, use
++@REM set MAVEN_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000
++@REM MAVEN_SKIP_RC - flag to disable loading of mavenrc files
++@REM ----------------------------------------------------------------------------
++
++@REM Begin all REM lines with '@' in case MAVEN_BATCH_ECHO is 'on'
++@echo off
++@REM enable echoing my setting MAVEN_BATCH_ECHO to 'on'
++@if "%MAVEN_BATCH_ECHO%" == "on"  echo %MAVEN_BATCH_ECHO%
++
++@REM set %HOME% to equivalent of $HOME
++if "%HOME%" == "" (set "HOME=%HOMEDRIVE%%HOMEPATH%")
++
++@REM Execute a user defined script before this one
++if not "%MAVEN_SKIP_RC%" == "" goto skipRcPre
++@REM check for pre script, once with legacy .bat ending and once with .cmd ending
++if exist "%HOME%\mavenrc_pre.bat" call "%HOME%\mavenrc_pre.bat"
++if exist "%HOME%\mavenrc_pre.cmd" call "%HOME%\mavenrc_pre.cmd"
++:skipRcPre
++
++@setlocal
++
++set ERROR_CODE=0
++
++@REM To isolate internal variables from possible post scripts, we use another setlocal
++@setlocal
++
++@REM ==== START VALIDATION ====
++if not "%JAVA_HOME%" == "" goto OkJHome
++
++echo.
++echo Error: JAVA_HOME not found in your environment. >&2
++echo Please set the JAVA_HOME variable in your environment to match the >&2
++echo location of your Java installation. >&2
++echo.
++goto error
++
++:OkJHome
++if exist "%JAVA_HOME%\bin\java.exe" goto init
++
++echo.
++echo Error: JAVA_HOME is set to an invalid directory. >&2
++echo JAVA_HOME = "%JAVA_HOME%" >&2
++echo Please set the JAVA_HOME variable in your environment to match the >&2
++echo location of your Java installation. >&2
++echo.
++goto error
++
++@REM ==== END VALIDATION ====
++
++:init
++
++@REM Find the project base dir, i.e. the directory that contains the folder ".mvn".
++@REM Fallback to current working directory if not found.
++
++set MAVEN_PROJECTBASEDIR=%MAVEN_BASEDIR%
++IF NOT "%MAVEN_PROJECTBASEDIR%"=="" goto endDetectBaseDir
++
++set EXEC_DIR=%CD%
++set WDIR=%EXEC_DIR%
++:findBaseDir
++IF EXIST "%WDIR%"\.mvn goto baseDirFound
++cd ..
++IF "%WDIR%"=="%CD%" goto baseDirNotFound
++set WDIR=%CD%
++goto findBaseDir
++
++:baseDirFound
++set MAVEN_PROJECTBASEDIR=%WDIR%
++cd "%EXEC_DIR%"
++goto endDetectBaseDir
++
++:baseDirNotFound
++set MAVEN_PROJECTBASEDIR=%EXEC_DIR%
++cd "%EXEC_DIR%"
++
++:endDetectBaseDir
++
++IF NOT EXIST "%MAVEN_PROJECTBASEDIR%\.mvn\jvm.config" goto endReadAdditionalConfig
++
++@setlocal EnableExtensions EnableDelayedExpansion
++for /F "usebackq delims=" %%a in ("%MAVEN_PROJECTBASEDIR%\.mvn\jvm.config") do set JVM_CONFIG_MAVEN_PROPS=!JVM_CONFIG_MAVEN_PROPS! %%a
++@endlocal & set JVM_CONFIG_MAVEN_PROPS=%JVM_CONFIG_MAVEN_PROPS%
++
++:endReadAdditionalConfig
++
++SET MAVEN_JAVA_EXE="%JAVA_HOME%\bin\java.exe"
++
++set WRAPPER_JAR="%MAVEN_PROJECTBASEDIR%\.mvn\wrapper\maven-wrapper.jar"
++set WRAPPER_LAUNCHER=org.apache.maven.wrapper.MavenWrapperMain
++
++%MAVEN_JAVA_EXE% %JVM_CONFIG_MAVEN_PROPS% %MAVEN_OPTS% %MAVEN_DEBUG_OPTS% -classpath %WRAPPER_JAR% "-Dmaven.multiModuleProjectDirectory=%MAVEN_PROJECTBASEDIR%" %WRAPPER_LAUNCHER% %MAVEN_CONFIG% %*
++if ERRORLEVEL 1 goto error
++goto end
++
++:error
++set ERROR_CODE=1
++
++:end
++@endlocal & set ERROR_CODE=%ERROR_CODE%
++
++if not "%MAVEN_SKIP_RC%" == "" goto skipRcPost
++@REM check for post script, once with legacy .bat ending and once with .cmd ending
++if exist "%HOME%\mavenrc_post.bat" call "%HOME%\mavenrc_post.bat"
++if exist "%HOME%\mavenrc_post.cmd" call "%HOME%\mavenrc_post.cmd"
++:skipRcPost
++
++@REM pause the script if MAVEN_BATCH_PAUSE is set to 'on'
++if "%MAVEN_BATCH_PAUSE%" == "on" pause
++
++if "%MAVEN_TERMINATE_CMD%" == "on" exit %ERROR_CODE%
++
++exit /B %ERROR_CODE%
+diff --git a/pom.xml b/pom.xml
+new file mode 100644
+index 0000000..b406854
+--- /dev/null
++++ b/pom.xml
+@@ -0,0 +1,89 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
++	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
++	<modelVersion>4.0.0</modelVersion>
++
++	<groupId>com.example</groupId>
++	<artifactId>webApplication</artifactId>
++	<version>0.0.1-SNAPSHOT</version>
++	<packaging>war</packaging>
++
++	<name>webApplication</name>
++	<description>Demo project for Spring Boot</description>
++
++	<parent>
++		<groupId>org.springframework.boot</groupId>
++		<artifactId>spring-boot-starter-parent</artifactId>
++		<version>1.5.9.RELEASE</version>
++		<relativePath/> <!-- lookup parent from repository -->
++	</parent>
++
++	<properties>
++		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
++		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
++		<java.version>1.8</java.version>
++	</properties>
++
++	<dependencies>
++		<dependency>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-starter-data-jpa</artifactId>
++		</dependency>
++		<dependency>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-starter-mobile</artifactId>
++		</dependency>
++		<dependency>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-starter-security</artifactId>
++		</dependency>
++		<dependency>
++			<groupId>org.springframework.session</groupId>
++			<artifactId>spring-session</artifactId>
++		</dependency>
++		<dependency>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-starter-thymeleaf</artifactId>
++		</dependency>
++		<dependency>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-starter-validation</artifactId>
++		</dependency>
++		<dependency>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-starter-web</artifactId>
++		</dependency>
++
++		<dependency>
++			<groupId>mysql</groupId>
++			<artifactId>mysql-connector-java</artifactId>
++			<scope>runtime</scope>
++		</dependency>
++		<dependency>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-starter-tomcat</artifactId>
++			<scope>provided</scope>
++		</dependency>
++		<dependency>
++			<groupId>org.springframework.boot</groupId>
++			<artifactId>spring-boot-starter-test</artifactId>
++			<scope>test</scope>
++		</dependency>
++		<dependency>
++			<groupId>org.springframework.security</groupId>
++			<artifactId>spring-security-test</artifactId>
++			<scope>test</scope>
++		</dependency>
++	</dependencies>
++
++	<build>
++		<plugins>
++			<plugin>
++				<groupId>org.springframework.boot</groupId>
++				<artifactId>spring-boot-maven-plugin</artifactId>
++			</plugin>
++		</plugins>
++	</build>
++
++
++</project>
+diff --git a/src/main/java/id/go/bpkp/ServletInitializer.java b/src/main/java/id/go/bpkp/ServletInitializer.java
+new file mode 100644
+index 0000000..2222fc9
+--- /dev/null
++++ b/src/main/java/id/go/bpkp/ServletInitializer.java
+@@ -0,0 +1,13 @@
++package id.go.bpkp;
++
++import org.springframework.boot.builder.SpringApplicationBuilder;
++import org.springframework.boot.web.support.SpringBootServletInitializer;
++
++public class ServletInitializer extends SpringBootServletInitializer {
++
++	@Override
++	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
++		return application.sources(WebApplication.class);
++	}
++
++}
+diff --git a/src/main/java/id/go/bpkp/WebApplication.java b/src/main/java/id/go/bpkp/WebApplication.java
+new file mode 100644
+index 0000000..d0972f3
+--- /dev/null
++++ b/src/main/java/id/go/bpkp/WebApplication.java
+@@ -0,0 +1,12 @@
++package id.go.bpkp;
++
++import org.springframework.boot.SpringApplication;
++import org.springframework.boot.autoconfigure.SpringBootApplication;
++
++@SpringBootApplication
++public class WebApplication {
++
++	public static void main(String[] args) {
++		SpringApplication.run(WebApplication.class, args);
++	}
++}
+diff --git a/src/main/java/id/go/bpkp/controller/ActorController.java b/src/main/java/id/go/bpkp/controller/ActorController.java
+new file mode 100644
+index 0000000..c56799d
+--- /dev/null
++++ b/src/main/java/id/go/bpkp/controller/ActorController.java
+@@ -0,0 +1,46 @@
++package id.go.bpkp.controller;
++
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Controller;
++import org.springframework.ui.Model;
++import org.springframework.web.bind.annotation.GetMapping;
++import org.springframework.web.bind.annotation.PathVariable;
++import org.springframework.web.bind.annotation.RequestMapping;
++
++import id.go.bpkp.dao.ActorDAO;
++import id.go.bpkp.entity.FilmActor;
++
++@Controller
++@RequestMapping("/actor")
++public class ActorController {
++	
++	@Autowired
++	private ActorDAO actorDAO;
++	
++	@GetMapping("/index")
++	public String index(Model model) {
++		String bahasa[]= {"Melayu", "Tagalog","Thailand"};
++		model.addAttribute("negara", "Indonesia");
++		model.addAttribute("bahasa", bahasa);
++		model.addAttribute("actors",actorDAO.allActors());
++		return "actor/index";
++	}
++	@GetMapping("/detail/{id}")
++	public String detail(@PathVariable("id") int actorId, Model model)
++	{
++		FilmActor filmActor=new FilmActor();
++		model.addAttribute("actor", actorDAO.getActors(actorId));
++		model.addAttribute("filmActors",actorDAO.allFilmActors(actorId));
++		return "actor/detail";
++	}
++	@GetMapping("/detailFilm/{id}")
++	public String detailFilm(@PathVariable("id") int filmId, Model model)
++	{
++		
++		model.addAttribute("film", actorDAO.getFilm(filmId));
++		model.addAttribute("Actors", actorDAO.allActorinFilm(filmId));
++		//model.addAttribute("film", "Indonesia");
++		return "actor/detailFilm";
++	}
++
++}
+diff --git a/src/main/java/id/go/bpkp/dao/ActorDAO.java b/src/main/java/id/go/bpkp/dao/ActorDAO.java
+new file mode 100644
+index 0000000..d0f77c5
+--- /dev/null
++++ b/src/main/java/id/go/bpkp/dao/ActorDAO.java
+@@ -0,0 +1,41 @@
++package id.go.bpkp.dao;
++
++import java.util.List;
++
++import javax.persistence.EntityManagerFactory;
++
++import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Service;
++
++import id.go.bpkp.entity.Actor;
++import id.go.bpkp.entity.Film;
++import id.go.bpkp.entity.FilmActor;
++import id.go.bpkp.entity.FilmActorPK;
++
++
++
++@Service
++public class ActorDAO {
++
++	
++	@Autowired
++	private EntityManagerFactory emf;
++	 public List<Actor> allActors(){
++	    	return emf  .createEntityManager().createQuery("from Actor").getResultList();
++	    }
++	 public Actor getActors(int id){
++	    	return (Actor) emf  .createEntityManager().createQuery("from Actor where actorId=" + id).getSingleResult();
++	    	
++	    }
++	 public List<FilmActor> allFilmActors(int id){
++	    	return emf  .createEntityManager().createQuery("FROM FilmActor f WHERE f.filmActorPK.actorId =" + id).getResultList();
++	    }
++	 public Film getFilm(int id){
++	    	return (Film) emf  .createEntityManager().createQuery("from Film where filmId=" + id).getSingleResult();
++	    	
++	    }
++	 public List<FilmActor> allActorinFilm(int id){
++	    	return emf  .createEntityManager().createQuery("FROM FilmActor f WHERE f.filmActorPK.filmId =" + id).getResultList();
++	    }
++	 
++}
+diff --git a/src/main/java/id/go/bpkp/entity/Actor.java b/src/main/java/id/go/bpkp/entity/Actor.java
+new file mode 100644
+index 0000000..3dee9a1
+--- /dev/null
++++ b/src/main/java/id/go/bpkp/entity/Actor.java
+@@ -0,0 +1,149 @@
++/*
++ * To change this license header, choose License Headers in Project Properties.
++ * To change this template file, choose Tools | Templates
++ * and open the template in the editor.
++ */
++package id.go.bpkp.entity;
++
++import java.io.Serializable;
++import java.util.Date;
++import java.util.List;
++import javax.persistence.Basic;
++import javax.persistence.CascadeType;
++import javax.persistence.Column;
++import javax.persistence.Entity;
++import javax.persistence.FetchType;
++import javax.persistence.GeneratedValue;
++import javax.persistence.GenerationType;
++import javax.persistence.Id;
++import javax.persistence.NamedQueries;
++import javax.persistence.NamedQuery;
++import javax.persistence.OneToMany;
++import javax.persistence.Table;
++import javax.persistence.Temporal;
++import javax.persistence.TemporalType;
++import javax.validation.constraints.NotNull;
++import javax.validation.constraints.Size;
++import javax.xml.bind.annotation.XmlRootElement;
++import javax.xml.bind.annotation.XmlTransient;
++
++/**
++ *
++ * @author Regi Riandani
++ */
++@Entity
++@Table(name = "actor")
++@XmlRootElement
++@NamedQueries({
++    @NamedQuery(name = "Actor.findAll", query = "SELECT a FROM Actor a")
++    , @NamedQuery(name = "Actor.findByActorId", query = "SELECT a FROM Actor a WHERE a.actorId = :actorId")
++    , @NamedQuery(name = "Actor.findByFirstName", query = "SELECT a FROM Actor a WHERE a.firstName = :firstName")
++    , @NamedQuery(name = "Actor.findByLastName", query = "SELECT a FROM Actor a WHERE a.lastName = :lastName")
++    , @NamedQuery(name = "Actor.findByLastUpdate", query = "SELECT a FROM Actor a WHERE a.lastUpdate = :lastUpdate")})
++public class Actor implements Serializable {
++
++    private static final long serialVersionUID = 1L;
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    @Basic(optional = false)
++    @Column(name = "actor_id")
++    private Short actorId;
++    @Basic(optional = false)
++    @NotNull
++    @Size(min = 1, max = 45)
++    @Column(name = "first_name")
++    private String firstName;
++    @Basic(optional = false)
++    @NotNull
++    @Size(min = 1, max = 45)
++    @Column(name = "last_name")
++    private String lastName;
++    @Basic(optional = false)
++    @NotNull
++    @Column(name = "last_update")
++    @Temporal(TemporalType.TIMESTAMP)
++    private Date lastUpdate;
++    @OneToMany(cascade = CascadeType.ALL, mappedBy = "actor", fetch = FetchType.LAZY)
++    private List<FilmActor> filmActorList;
++    
++    public Actor() {
++    }
++
++    public Actor(Short actorId) {
++        this.actorId = actorId;
++    }
++
++    public Actor(Short actorId, String firstName, String lastName, Date lastUpdate) {
++        this.actorId = actorId;
++        this.firstName = firstName;
++        this.lastName = lastName;
++        this.lastUpdate = lastUpdate;
++    }
++
++    public Short getActorId() {
++        return actorId;
++    }
++
++    public void setActorId(Short actorId) {
++        this.actorId = actorId;
++    }
++
++    public String getFirstName() {
++        return firstName;
++    }
++
++    public void setFirstName(String firstName) {
++        this.firstName = firstName;
++    }
++
++    public String getLastName() {
++        return lastName;
++    }
++
++    public void setLastName(String lastName) {
++        this.lastName = lastName;
++    }
++
++    public Date getLastUpdate() {
++        return lastUpdate;
++    }
++
++    public void setLastUpdate(Date lastUpdate) {
++        this.lastUpdate = lastUpdate;
++    }
++
++    @XmlTransient
++    public List<FilmActor> getFilmActorList() {
++        return filmActorList;
++    }
++
++    public void setFilmActorList(List<FilmActor> filmActorList) {
++        this.filmActorList = filmActorList;
++    }
++
++    @Override
++    public int hashCode() {
++        int hash = 0;
++        hash += (actorId != null ? actorId.hashCode() : 0);
++        return hash;
++    }
++
++    @Override
++    public boolean equals(Object object) {
++        // TODO: Warning - this method won't work in the case the id fields are not set
++        if (!(object instanceof Actor)) {
++            return false;
++        }
++        Actor other = (Actor) object;
++        if ((this.actorId == null && other.actorId != null) || (this.actorId != null && !this.actorId.equals(other.actorId))) {
++            return false;
++        }
++        return true;
++    }
++
++    @Override
++    public String toString() {
++        return "id.go.bpkp.entity.Actor[ actorId=" + actorId + " ]";
++    }
++    
++}
+diff --git a/src/main/java/id/go/bpkp/entity/Film.java b/src/main/java/id/go/bpkp/entity/Film.java
+new file mode 100644
+index 0000000..24fca0e
+--- /dev/null
++++ b/src/main/java/id/go/bpkp/entity/Film.java
+@@ -0,0 +1,262 @@
++/*
++ * To change this license header, choose License Headers in Project Properties.
++ * To change this template file, choose Tools | Templates
++ * and open the template in the editor.
++ */
++package id.go.bpkp.entity;
++
++import java.io.Serializable;
++import java.math.BigDecimal;
++import java.util.Date;
++import java.util.List;
++import javax.persistence.Basic;
++import javax.persistence.CascadeType;
++import javax.persistence.Column;
++import javax.persistence.Entity;
++import javax.persistence.FetchType;
++import javax.persistence.GeneratedValue;
++import javax.persistence.GenerationType;
++import javax.persistence.Id;
++import javax.persistence.JoinColumn;
++import javax.persistence.Lob;
++import javax.persistence.ManyToOne;
++import javax.persistence.NamedQueries;
++import javax.persistence.NamedQuery;
++import javax.persistence.OneToMany;
++import javax.persistence.Table;
++import javax.persistence.Temporal;
++import javax.persistence.TemporalType;
++import javax.validation.constraints.NotNull;
++import javax.validation.constraints.Size;
++import javax.xml.bind.annotation.XmlRootElement;
++import javax.xml.bind.annotation.XmlTransient;
++
++/**
++ *
++ * @author Regi Riandani
++ */
++@Entity
++@Table(name = "film")
++@XmlRootElement
++@NamedQueries({
++    @NamedQuery(name = "Film.findAll", query = "SELECT f FROM Film f")
++    , @NamedQuery(name = "Film.findByFilmId", query = "SELECT f FROM Film f WHERE f.filmId = :filmId")
++    , @NamedQuery(name = "Film.findByTitle", query = "SELECT f FROM Film f WHERE f.title = :title")
++    , @NamedQuery(name = "Film.findByReleaseYear", query = "SELECT f FROM Film f WHERE f.releaseYear = :releaseYear")
++    , @NamedQuery(name = "Film.findByRentalDuration", query = "SELECT f FROM Film f WHERE f.rentalDuration = :rentalDuration")
++    , @NamedQuery(name = "Film.findByRentalRate", query = "SELECT f FROM Film f WHERE f.rentalRate = :rentalRate")
++    , @NamedQuery(name = "Film.findByLength", query = "SELECT f FROM Film f WHERE f.length = :length")
++    , @NamedQuery(name = "Film.findByReplacementCost", query = "SELECT f FROM Film f WHERE f.replacementCost = :replacementCost")
++    , @NamedQuery(name = "Film.findByRating", query = "SELECT f FROM Film f WHERE f.rating = :rating")
++    , @NamedQuery(name = "Film.findBySpecialFeatures", query = "SELECT f FROM Film f WHERE f.specialFeatures = :specialFeatures")
++    , @NamedQuery(name = "Film.findByLastUpdate", query = "SELECT f FROM Film f WHERE f.lastUpdate = :lastUpdate")})
++public class Film implements Serializable {
++
++    private static final long serialVersionUID = 1L;
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    @Basic(optional = false)
++    @Column(name = "film_id")
++    private Short filmId;
++    @Basic(optional = false)
++    @NotNull
++    @Size(min = 1, max = 255)
++    @Column(name = "title")
++    private String title;
++    @Lob
++    @Size(max = 65535)
++    @Column(name = "description")
++    private String description;
++    @Column(name = "release_year")
++    @Temporal(TemporalType.DATE)
++    private Date releaseYear;
++    @Basic(optional = false)
++    @NotNull
++    @Column(name = "rental_duration")
++    private short rentalDuration;
++    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
++    @Basic(optional = false)
++    @NotNull
++    @Column(name = "rental_rate")
++    private BigDecimal rentalRate;
++    @Column(name = "length")
++    private Short length;
++    @Basic(optional = false)
++    @NotNull
++    @Column(name = "replacement_cost")
++    private BigDecimal replacementCost;
++    @Size(max = 5)
++    @Column(name = "rating")
++    private String rating;
++    @Size(max = 54)
++    @Column(name = "special_features")
++    private String specialFeatures;
++    @Basic(optional = false)
++    @NotNull
++    @Column(name = "last_update")
++    @Temporal(TemporalType.TIMESTAMP)
++    private Date lastUpdate;
++    @OneToMany(cascade = CascadeType.ALL, mappedBy = "film", fetch = FetchType.LAZY)
++    private List<FilmActor> filmActorList;
++    @JoinColumn(name = "language_id", referencedColumnName = "language_id")
++    @ManyToOne(optional = false, fetch = FetchType.LAZY)
++    private Language languageId;
++    @JoinColumn(name = "original_language_id", referencedColumnName = "language_id")
++    @ManyToOne(fetch = FetchType.LAZY)
++    private Language originalLanguageId;
++
++    public Film() {
++    }
++
++    public Film(Short filmId) {
++        this.filmId = filmId;
++    }
++
++    public Film(Short filmId, String title, short rentalDuration, BigDecimal rentalRate, BigDecimal replacementCost, Date lastUpdate) {
++        this.filmId = filmId;
++        this.title = title;
++        this.rentalDuration = rentalDuration;
++        this.rentalRate = rentalRate;
++        this.replacementCost = replacementCost;
++        this.lastUpdate = lastUpdate;
++    }
++
++    public Short getFilmId() {
++        return filmId;
++    }
++
++    public void setFilmId(Short filmId) {
++        this.filmId = filmId;
++    }
++
++    public String getTitle() {
++        return title;
++    }
++
++    public void setTitle(String title) {
++        this.title = title;
++    }
++
++    public String getDescription() {
++        return description;
++    }
++
++    public void setDescription(String description) {
++        this.description = description;
++    }
++
++    public Date getReleaseYear() {
++        return releaseYear;
++    }
++
++    public void setReleaseYear(Date releaseYear) {
++        this.releaseYear = releaseYear;
++    }
++
++    public short getRentalDuration() {
++        return rentalDuration;
++    }
++
++    public void setRentalDuration(short rentalDuration) {
++        this.rentalDuration = rentalDuration;
++    }
++
++    public BigDecimal getRentalRate() {
++        return rentalRate;
++    }
++
++    public void setRentalRate(BigDecimal rentalRate) {
++        this.rentalRate = rentalRate;
++    }
++
++    public Short getLength() {
++        return length;
++    }
++
++    public void setLength(Short length) {
++        this.length = length;
++    }
++
++    public BigDecimal getReplacementCost() {
++        return replacementCost;
++    }
++
++    public void setReplacementCost(BigDecimal replacementCost) {
++        this.replacementCost = replacementCost;
++    }
++
++    public String getRating() {
++        return rating;
++    }
++
++    public void setRating(String rating) {
++        this.rating = rating;
++    }
++
++    public String getSpecialFeatures() {
++        return specialFeatures;
++    }
++
++    public void setSpecialFeatures(String specialFeatures) {
++        this.specialFeatures = specialFeatures;
++    }
++
++    public Date getLastUpdate() {
++        return lastUpdate;
++    }
++
++    public void setLastUpdate(Date lastUpdate) {
++        this.lastUpdate = lastUpdate;
++    }
++
++    @XmlTransient
++    public List<FilmActor> getFilmActorList() {
++        return filmActorList;
++    }
++
++    public void setFilmActorList(List<FilmActor> filmActorList) {
++        this.filmActorList = filmActorList;
++    }
++
++    public Language getLanguageId() {
++        return languageId;
++    }
++
++    public void setLanguageId(Language languageId) {
++        this.languageId = languageId;
++    }
++
++    public Language getOriginalLanguageId() {
++        return originalLanguageId;
++    }
++
++    public void setOriginalLanguageId(Language originalLanguageId) {
++        this.originalLanguageId = originalLanguageId;
++    }
++
++    @Override
++    public int hashCode() {
++        int hash = 0;
++        hash += (filmId != null ? filmId.hashCode() : 0);
++        return hash;
++    }
++
++    @Override
++    public boolean equals(Object object) {
++        // TODO: Warning - this method won't work in the case the id fields are not set
++        if (!(object instanceof Film)) {
++            return false;
++        }
++        Film other = (Film) object;
++        if ((this.filmId == null && other.filmId != null) || (this.filmId != null && !this.filmId.equals(other.filmId))) {
++            return false;
++        }
++        return true;
++    }
++
++    @Override
++    public String toString() {
++        return "id.go.bpkp.entity.Film[ filmId=" + filmId + " ]";
++    }
++    
++}
+diff --git a/src/main/java/id/go/bpkp/entity/FilmActor.java b/src/main/java/id/go/bpkp/entity/FilmActor.java
+new file mode 100644
+index 0000000..9c9113c
+--- /dev/null
++++ b/src/main/java/id/go/bpkp/entity/FilmActor.java
+@@ -0,0 +1,127 @@
++/*
++ * To change this license header, choose License Headers in Project Properties.
++ * To change this template file, choose Tools | Templates
++ * and open the template in the editor.
++ */
++package id.go.bpkp.entity;
++
++import java.io.Serializable;
++import java.util.Date;
++import javax.persistence.Basic;
++import javax.persistence.Column;
++import javax.persistence.EmbeddedId;
++import javax.persistence.Entity;
++import javax.persistence.FetchType;
++import javax.persistence.JoinColumn;
++import javax.persistence.ManyToOne;
++import javax.persistence.NamedQueries;
++import javax.persistence.NamedQuery;
++import javax.persistence.Table;
++import javax.persistence.Temporal;
++import javax.persistence.TemporalType;
++import javax.validation.constraints.NotNull;
++import javax.xml.bind.annotation.XmlRootElement;
++
++/**
++ *
++ * @author Regi Riandani
++ */
++@Entity
++@Table(name = "film_actor")
++@XmlRootElement
++@NamedQueries({
++    @NamedQuery(name = "FilmActor.findAll", query = "SELECT f FROM FilmActor f")
++    , @NamedQuery(name = "FilmActor.findByActorId", query = "SELECT f FROM FilmActor f WHERE f.filmActorPK.actorId = :actorId")
++    , @NamedQuery(name = "FilmActor.findByFilmId", query = "SELECT f FROM FilmActor f WHERE f.filmActorPK.filmId = :filmId")
++    , @NamedQuery(name = "FilmActor.findByLastUpdate", query = "SELECT f FROM FilmActor f WHERE f.lastUpdate = :lastUpdate")})
++public class FilmActor implements Serializable {
++
++    private static final long serialVersionUID = 1L;
++    @EmbeddedId
++    protected FilmActorPK filmActorPK;
++    @Basic(optional = false)
++    @NotNull
++    @Column(name = "last_update")
++    @Temporal(TemporalType.TIMESTAMP)
++    private Date lastUpdate;
++    @JoinColumn(name = "actor_id", referencedColumnName = "actor_id", insertable = false, updatable = false)
++    @ManyToOne(optional = false, fetch = FetchType.LAZY)
++    private Actor actor;
++    @JoinColumn(name = "film_id", referencedColumnName = "film_id", insertable = false, updatable = false)
++    @ManyToOne(optional = false, fetch = FetchType.LAZY)
++    private Film film;
++
++    public FilmActor() {
++    }
++
++    public FilmActor(FilmActorPK filmActorPK) {
++        this.filmActorPK = filmActorPK;
++    }
++
++    public FilmActor(FilmActorPK filmActorPK, Date lastUpdate) {
++        this.filmActorPK = filmActorPK;
++        this.lastUpdate = lastUpdate;
++    }
++
++    public FilmActor(short actorId, short filmId) {
++        this.filmActorPK = new FilmActorPK(actorId, filmId);
++    }
++
++    public FilmActorPK getFilmActorPK() {
++        return filmActorPK;
++    }
++
++    public void setFilmActorPK(FilmActorPK filmActorPK) {
++        this.filmActorPK = filmActorPK;
++    }
++
++    public Date getLastUpdate() {
++        return lastUpdate;
++    }
++
++    public void setLastUpdate(Date lastUpdate) {
++        this.lastUpdate = lastUpdate;
++    }
++
++    public Actor getActor() {
++        return actor;
++    }
++
++    public void setActor(Actor actor) {
++        this.actor = actor;
++    }
++
++    public Film getFilm() {
++        return film;
++    }
++
++    public void setFilm(Film film) {
++        this.film = film;
++    }
++
++    @Override
++    public int hashCode() {
++        int hash = 0;
++        hash += (filmActorPK != null ? filmActorPK.hashCode() : 0);
++        return hash;
++    }
++
++    @Override
++    public boolean equals(Object object) {
++        // TODO: Warning - this method won't work in the case the id fields are not set
++        if (!(object instanceof FilmActor)) {
++            return false;
++        }
++        FilmActor other = (FilmActor) object;
++        if ((this.filmActorPK == null && other.filmActorPK != null) || (this.filmActorPK != null && !this.filmActorPK.equals(other.filmActorPK))) {
++            return false;
++        }
++        return true;
++    }
++
++    @Override
++    public String toString() {
++        return "id.go.bpkp.entity.FilmActor[ filmActorPK=" + filmActorPK + " ]";
++    }
++    
++}
+diff --git a/src/main/java/id/go/bpkp/entity/FilmActorPK.java b/src/main/java/id/go/bpkp/entity/FilmActorPK.java
+new file mode 100644
+index 0000000..f5245dd
+--- /dev/null
++++ b/src/main/java/id/go/bpkp/entity/FilmActorPK.java
+@@ -0,0 +1,83 @@
++/*
++ * To change this license header, choose License Headers in Project Properties.
++ * To change this template file, choose Tools | Templates
++ * and open the template in the editor.
++ */
++package id.go.bpkp.entity;
++
++import java.io.Serializable;
++import javax.persistence.Basic;
++import javax.persistence.Column;
++import javax.persistence.Embeddable;
++import javax.validation.constraints.NotNull;
++
++/**
++ *
++ * @author Regi Riandani
++ */
++@Embeddable
++public class FilmActorPK implements Serializable {
++
++    @Basic(optional = false)
++    @NotNull
++    @Column(name = "actor_id")
++    private short actorId;
++    @Basic(optional = false)
++    @NotNull
++    @Column(name = "film_id")
++    private short filmId;
++
++    public FilmActorPK() {
++    }
++
++    public FilmActorPK(short actorId, short filmId) {
++        this.actorId = actorId;
++        this.filmId = filmId;
++    }
++
++    public short getActorId() {
++        return actorId;
++    }
++
++    public void setActorId(short actorId) {
++        this.actorId = actorId;
++    }
++
++    public short getFilmId() {
++        return filmId;
++    }
++
++    public void setFilmId(short filmId) {
++        this.filmId = filmId;
++    }
++
++    @Override
++    public int hashCode() {
++        int hash = 0;
++        hash += (int) actorId;
++        hash += (int) filmId;
++        return hash;
++    }
++
++    @Override
++    public boolean equals(Object object) {
++        // TODO: Warning - this method won't work in the case the id fields are not set
++        if (!(object instanceof FilmActorPK)) {
++            return false;
++        }
++        FilmActorPK other = (FilmActorPK) object;
++        if (this.actorId != other.actorId) {
++            return false;
++        }
++        if (this.filmId != other.filmId) {
++            return false;
++        }
++        return true;
++    }
++
++    @Override
++    public String toString() {
++        return "id.go.bpkp.entity.FilmActorPK[ actorId=" + actorId + ", filmId=" + filmId + " ]";
++    }
++    
++}
+diff --git a/src/main/java/id/go/bpkp/entity/Instansi.java b/src/main/java/id/go/bpkp/entity/Instansi.java
+new file mode 100644
+index 0000000..aeac778
+--- /dev/null
++++ b/src/main/java/id/go/bpkp/entity/Instansi.java
+@@ -0,0 +1,28 @@
++package id.go.bpkp.entity;
++
++import java.io.Serializable;
++
++import javax.persistence.Basic;
++import javax.persistence.Column;
++import javax.persistence.Entity;
++import javax.persistence.GeneratedValue;
++import javax.persistence.GenerationType;
++import javax.persistence.Id;
++import javax.persistence.Table;
++import javax.validation.constraints.NotNull;
++import javax.validation.constraints.Size;
++
++@Entity
++@Table(name="instansi")
++public class Instansi implements Serializable {
++	@Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    @Basic(optional = false)
++    @Column(name = "instansi_id")
++    private Short instansiId;
++    @Basic(optional = false)
++    @NotNull
++    @Size(min = 1, max = 45)
++    @Column(name = "nama")
++    private String Nama;
++}
+diff --git a/src/main/java/id/go/bpkp/entity/Language.java b/src/main/java/id/go/bpkp/entity/Language.java
+new file mode 100644
+index 0000000..fc141dd
+--- /dev/null
++++ b/src/main/java/id/go/bpkp/entity/Language.java
+@@ -0,0 +1,145 @@
++/*
++ * To change this license header, choose License Headers in Project Properties.
++ * To change this template file, choose Tools | Templates
++ * and open the template in the editor.
++ */
++package id.go.bpkp.entity;
++
++import java.io.Serializable;
++import java.util.Date;
++import java.util.List;
++import javax.persistence.Basic;
++import javax.persistence.CascadeType;
++import javax.persistence.Column;
++import javax.persistence.Entity;
++import javax.persistence.FetchType;
++import javax.persistence.GeneratedValue;
++import javax.persistence.GenerationType;
++import javax.persistence.Id;
++import javax.persistence.NamedQueries;
++import javax.persistence.NamedQuery;
++import javax.persistence.OneToMany;
++import javax.persistence.Table;
++import javax.persistence.Temporal;
++import javax.persistence.TemporalType;
++import javax.validation.constraints.NotNull;
++import javax.validation.constraints.Size;
++import javax.xml.bind.annotation.XmlRootElement;
++import javax.xml.bind.annotation.XmlTransient;
++
++/**
++ *
++ * @author Regi Riandani
++ */
++@Entity
++@Table(name = "language")
++@XmlRootElement
++@NamedQueries({
++    @NamedQuery(name = "Language.findAll", query = "SELECT l FROM Language l")
++    , @NamedQuery(name = "Language.findByLanguageId", query = "SELECT l FROM Language l WHERE l.languageId = :languageId")
++    , @NamedQuery(name = "Language.findByName", query = "SELECT l FROM Language l WHERE l.name = :name")
++    , @NamedQuery(name = "Language.findByLastUpdate", query = "SELECT l FROM Language l WHERE l.lastUpdate = :lastUpdate")})
++public class Language implements Serializable {
++
++    private static final long serialVersionUID = 1L;
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    @Basic(optional = false)
++    @Column(name = "language_id")
++    private Short languageId;
++    @Basic(optional = false)
++    @NotNull
++    @Size(min = 1, max = 20)
++    @Column(name = "name")
++    private String name;
++    @Basic(optional = false)
++    @NotNull
++    @Column(name = "last_update")
++    @Temporal(TemporalType.TIMESTAMP)
++    private Date lastUpdate;
++    @OneToMany(cascade = CascadeType.ALL, mappedBy = "languageId", fetch = FetchType.LAZY)
++    private List<Film> filmList;
++    @OneToMany(mappedBy = "originalLanguageId", fetch = FetchType.LAZY)
++    private List<Film> filmList1;
++
++    public Language() {
++    }
++
++    public Language(Short languageId) {
++        this.languageId = languageId;
++    }
++
++    public Language(Short languageId, String name, Date lastUpdate) {
++        this.languageId = languageId;
++        this.name = name;
++        this.lastUpdate = lastUpdate;
++    }
++
++    public Short getLanguageId() {
++        return languageId;
++    }
++
++    public void setLanguageId(Short languageId) {
++        this.languageId = languageId;
++    }
++
++    public String getName() {
++        return name;
++    }
++
++    public void setName(String name) {
++        this.name = name;
++    }
++
++    public Date getLastUpdate() {
++        return lastUpdate;
++    }
++
++    public void setLastUpdate(Date lastUpdate) {
++        this.lastUpdate = lastUpdate;
++    }
++
++    @XmlTransient
++    public List<Film> getFilmList() {
++        return filmList;
++    }
++
++    public void setFilmList(List<Film> filmList) {
++        this.filmList = filmList;
++    }
++
++    @XmlTransient
++    public List<Film> getFilmList1() {
++        return filmList1;
++    }
++
++    public void setFilmList1(List<Film> filmList1) {
++        this.filmList1 = filmList1;
++    }
++
++    @Override
++    public int hashCode() {
++        int hash = 0;
++        hash += (languageId != null ? languageId.hashCode() : 0);
++        return hash;
++    }
++
++    @Override
++    public boolean equals(Object object) {
++        // TODO: Warning - this method won't work in the case the id fields are not set
++        if (!(object instanceof Language)) {
++            return false;
++        }
++        Language other = (Language) object;
++        if ((this.languageId == null && other.languageId != null) || (this.languageId != null && !this.languageId.equals(other.languageId))) {
++            return false;
++        }
++        return true;
++    }
++
++    @Override
++    public String toString() {
++        return "id.go.bpkp.entity.Language[ languageId=" + languageId + " ]";
++    }
++    
++}
+diff --git a/src/main/resources/application.properties b/src/main/resources/application.properties
+new file mode 100644
+index 0000000..e4f5aaf
+--- /dev/null
++++ b/src/main/resources/application.properties
+@@ -0,0 +1,8 @@
++spring.datasource.url=jdbc:mysql://localhost:3306/sakila
++spring.datasource.username=root
++spring.datasource.password=
++spring.datasource.driver-class-name=com.mysql.jdbc.Driver
++spring.session.store-type=none
++security.basic.enabled=false
++spring.jpa.generate-ddl=true
++spring.jpa.hibernate.ddl-auto=update
+\ No newline at end of file
+diff --git a/src/main/resources/templates/actor/detail.html b/src/main/resources/templates/actor/detail.html
+new file mode 100644
+index 0000000..f2c9897
+--- /dev/null
++++ b/src/main/resources/templates/actor/detail.html
+@@ -0,0 +1,48 @@
++<!DOCTYPE html>
++<html xmlns:th="http://www.thymeleaf.org">
++<head>
++<meta charset="ISO-8859-1" />
++<title>Insert title here</title>
++<link rel="stylesheet"
++	href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
++<script src="http://code.jquery.com/jquery-3.2.1.min.js"
++	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
++	crossorigin="anonymous"></script>
++<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
++<script>
++	$(document).ready(function() {
++		$('table').DataTable();
++	});
++</script>
++</head>
++<body>
++	<table>
++		<thead>
++			<tr>
++				<th>First Name</th>
++				<td th:text="${actor.firstName}"></td>
++			</tr>
++			<tr>
++				<th>Last Name</th>
++				<td th:text="${actor.lastName}"></td>
++			</tr>
++
++			<tr>
++				<th>Title</th>
++				<th>Description</th>
++				<th>Detail</th>
++			</tr>
++		</thead>
++		<tbody>
++			<tr th:each="filmActor : ${filmActors}">
++				<td th:text="${filmActor.film.title}"></td>
++				<td th:text="${filmActor.film.description}"></td>
++				<td><a
++					th:href="@{'/actor/detailFilm/'+${filmActor.film.filmId}}">Detail</a></td>
++			</tr>
++		</tbody>
++	</table>
++
++
++</body>
++</html>
+\ No newline at end of file
+diff --git a/src/main/resources/templates/actor/detailFilm.html b/src/main/resources/templates/actor/detailFilm.html
+new file mode 100644
+index 0000000..801bf89
+--- /dev/null
++++ b/src/main/resources/templates/actor/detailFilm.html
+@@ -0,0 +1,47 @@
++<!DOCTYPE html>
++<html xmlns:th="http://www.thymeleaf.org">
++<head>
++<meta charset="ISO-8859-1" />
++<title>Insert title here</title>
++<link rel="stylesheet"
++	href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
++<script src="http://code.jquery.com/jquery-3.2.1.min.js"
++	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
++	crossorigin="anonymous"></script>
++<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
++<script>
++	$(document).ready(function() {
++		$('table').DataTable();
++	});
++</script>
++</head>
++<body>
++	<table>
++		<thead>
++			<tr>
++				<th>Title</th>
++				<td th:text="${film.title}"></td>
++			</tr>
++			<tr>
++				<th>Description</th>
++				<td th:text="${film.description}"></td>
++			</tr>
++
++			<tr>
++				<th>First Name</th>
++				<th>Last Name</th>
++				<th>Detail</th>
++			</tr>
++		</thead>
++		<tbody>
++			<tr th:each="Actor : ${Actors}">
++				<td th:text="${Actor.actor.firstName}"></td>
++				<td th:text="${Actor.actor.lastName}"></td>
++				<td><a th:href="@{'/actor/detail/'+${Actor.actor.actorId}}">Detail</a></td>
++			</tr>
++		</tbody>
++	</table>
++
++
++</body>
++</html>
+\ No newline at end of file
+diff --git a/src/main/resources/templates/actor/index.html b/src/main/resources/templates/actor/index.html
+new file mode 100644
+index 0000000..1aa1608
+--- /dev/null
++++ b/src/main/resources/templates/actor/index.html
+@@ -0,0 +1,43 @@
++<!DOCTYPE html>
++<html xmlns:th="http://www.thymeleaf.org">
++<head>
++<meta charset="ISO-8859-1"/>
++<title>Insert title here</title>
++<link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/> 
++<script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
++<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
++<script>
++$(document).ready(function()
++		{
++	$('table').DataTable();
++		});
++</script>
++</head>
++<body>
++  <table>
++	<thead>
++		<tr>
++			<th>First Name</th>
++			<th>Last Name</th>
++			<th>Film(s)</th>
++			<th>Details</th>
++		</tr>
++	
++	</thead>
++	<tbody>
++		<tr th:each="actor : ${actors}">
++			<td th:text="${actor.firstName}"></td>
++			<td th:text="${actor.lastName}"></td>
++			<td th:text="${#lists.size(actor.filmActorList)}"></td>
++			<td><a th:href="@{'/actor/detail/'+${actor.actorId}}">Detail</a></td>
++		</tr>
++		</tbody>
++  </table>
++	
++	<p th:text="'Kita di ' + ${negara}"> This is Index</p>
++
++<p th:each="bhs:${bahasa}"
++	th:text="${bhs}"> This is Index</p>
++	
++</body>
++</html>
+\ No newline at end of file
+diff --git a/src/test/java/com/example/demo/WebApplicationTests.java b/src/test/java/com/example/demo/WebApplicationTests.java
+new file mode 100644
+index 0000000..95462e4
+--- /dev/null
++++ b/src/test/java/com/example/demo/WebApplicationTests.java
+@@ -0,0 +1,16 @@
++package com.example.demo;
++
++import org.junit.Test;
++import org.junit.runner.RunWith;
++import org.springframework.boot.test.context.SpringBootTest;
++import org.springframework.test.context.junit4.SpringRunner;
++
++@RunWith(SpringRunner.class)
++@SpringBootTest
++public class WebApplicationTests {
++
++	@Test
++	public void contextLoads() {
++	}
++
++}
