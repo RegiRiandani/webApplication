@@ -21,6 +21,7 @@ $(document).ready(function()
 			<th>Last Name</th>
 			<th>Film(s)</th>
 			<th>Details</th>
+			<th>Edit</th>
 		</tr>
 	
 	</thead>
@@ -30,6 +31,7 @@ $(document).ready(function()
 			<td th:text="${actor.lastName}"></td>
 			<td th:text="${#lists.size(actor.filmActorList)}"></td>
 			<td><a th:href="@{'/actor/detail/'+${actor.actorId}}">Detail</a></td>
+			<td><a th:href="@{'/actor/edit/'+${actor.actorId}}">Edit</a></td>
 		</tr>
 		</tbody>
   </table>

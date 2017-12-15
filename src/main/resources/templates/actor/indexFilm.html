@@ -17,21 +17,17 @@ $(document).ready(function()
   <table>
 	<thead>
 		<tr>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>Film(s)</th>
+			<th>Title</th>
+			<th>Description</th>
 			<th>Details</th>
-			<th>Edit</th>
 		</tr>
 	
 	</thead>
 	<tbody>
-		<tr th:each="actor : ${actors}">
-			<td th:text="${actor.firstName}"></td>
-			<td th:text="${actor.lastName}"></td>
-			<td th:text="${#lists.size(actor.filmActorList)}"></td>
-			<td><a th:href="@{'/actor/detail/'+${actor.actorId}}">Detail</a></td>
-			<td><a th:href="@{'/actor/edit/'+${actor.actorId}}">Edit</a></td>
+		<tr th:each="film : ${films}">
+			<td th:text="${film.title}"></td>
+			<td th:text="${film.description}"></td>
+			<td><a th:href="@{'/actor/detailFilm/'+${film.filmId}}">Detail</a></td>
 		</tr>
 		</tbody>
   </table>

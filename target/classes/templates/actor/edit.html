@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Insert title here</title>
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/> 
+<script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+<script>
+$(document).ready(function()
+		{
+	$('table').DataTable();
+		});
+</script>
+</head>
+<body>
+<form action="#"
+th:action="@{/actor/edit}"
+th:object="${actor}"
+method="post">
+<div>
+<label th:for="${actor.firstName}">First Name</label>
+<input type="text" th:field="${actor.firstName}" th:errorclass="fieldError"/>
+<input type="hidden" th:field="${actor.actorId}" th:errorclass="fieldError"/>
+</div>
+<div>
+<label th:for="${actor.lastName}">Last Name</label>
+<input type="text" th:field="${actor.lastName}" th:errorclass="fieldError"/>
+</div>
+<div>
+<input type="submit" value="SIMPAN"/>
+</div>
+</form>  
+	
+</body>
+</html>
