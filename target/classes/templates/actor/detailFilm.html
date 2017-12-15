@@ -5,13 +5,50 @@
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/jquery-ui-git.css" />
+
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+			  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+			  crossorigin="anonymous"></script>
+	
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script>
 	$(document).ready(function() {
 		$('table').DataTable();
+		$.getJSON("http://localhost:8181/greet/actors/", function(data){
+			var nama=[];
+			$.each(data,function(i,row)
+			{
+			nama[i] = 
+			{'value':row.actorId,
+				'label':row.firstName +" "+ row.lastName
+					
+			};
+			});
+			console.log(nama);
+			$("#actorInput").autocomplete({
+			source:nama,
+			select:function(event,ui){
+			event.preventDefault();
+			$(this).val(ui.item.label);
+			$("#idActor").val(ui.item.value);
+			}
+			});
+
+			$("#link").click(function()
+			{
+			var filmId=$("#idFilm").text();
+			var actorId=$("#idActor").val();
+			$.getJSON("http://localhost:8080/linkActorFilm/"+filmId+"/"+actorId, function(data){
+				if(data==0) location.href=location.href;
+				});
+			});
+			});
+
 	});
 </script>
 </head>
@@ -26,7 +63,16 @@
 				<th>Description</th>
 				<td th:text="${film.description}"></td>
 			</tr>
-
+<tr>
+		<td>
+		<input type="text" id="actorInput"/>
+		<input type="hidden" id="idActor"/>
+		<div  id="idFilm" th:text="${film.filmId}"/>
+		</td>
+		<td>
+		<input type="button" id="link" value="simpan"/>
+		</td>
+		</tr>
 			<tr>
 				<th>First Name</th>
 				<th>Last Name</th>

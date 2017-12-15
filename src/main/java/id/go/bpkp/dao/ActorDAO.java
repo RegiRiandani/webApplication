@@ -30,12 +30,13 @@ public class ActorDAO {
 	 public List<FilmActor> allFilmActors(int id){
 	    	return emf  .createEntityManager().createQuery("FROM FilmActor f WHERE f.filmActorPK.actorId =" + id).getResultList();
 	    }
+	 
+	 public List<FilmActor> allActorinFilm(int id){
+	    	return emf  .createEntityManager().createQuery("FROM FilmActor f WHERE f.filmActorPK.filmId =" + id).getResultList();
+	    }
 	 public Film getFilm(int id){
 	    	return (Film) emf  .createEntityManager().createQuery("from Film where filmId=" + id).getSingleResult();
 	    	
-	    }
-	 public List<FilmActor> allActorinFilm(int id){
-	    	return emf  .createEntityManager().createQuery("FROM FilmActor f WHERE f.filmActorPK.filmId =" + id).getResultList();
 	    }
 	 
 }

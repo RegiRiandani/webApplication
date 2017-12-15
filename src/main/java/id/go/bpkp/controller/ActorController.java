@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import id.go.bpkp.dao.ActorDAO;
+import id.go.bpkp.dao.FilmDAO;
 import id.go.bpkp.entity.FilmActor;
 
 @Controller
@@ -16,6 +17,7 @@ public class ActorController {
 	
 	@Autowired
 	private ActorDAO actorDAO;
+	private FilmDAO filmDAO;
 	
 	@GetMapping("/index")
 	public String index(Model model) {
